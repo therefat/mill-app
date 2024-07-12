@@ -8,24 +8,9 @@ export const MillInfoContex = createContext('')
 
 const MillInfoProvider = ({children}) => {
     // state to hold millinfo data
-    const [MillInfoData,setMillInfoData] = useState();
-    useEffect(() => {
-        // Reference to the Firestore collection
-    const collectionRef = collection(db, 'millData');
-
-    // Function to fetch data from the Firestore collection
-    const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
-      const fetchedData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setMillInfoData(fetchedData);
-    });
-
-    // Cleanup function to detach the listener on unmount
-    return unsubscribe;
-        
-
-
-      }, []);
-      console.log(MillInfoData)
+    const [MillInfoData,setMillInfoData] = useState([]);
+    
+      
       return <MillInfoContex.Provider value={{MillInfoData,setMillInfoData}}>
         {children}
       </MillInfoContex.Provider>
